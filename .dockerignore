@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.npm-cache/
+.syslib/
+test-results/
+playwright-report/
+coverage/
+.git/
+.gitignore
+*.log

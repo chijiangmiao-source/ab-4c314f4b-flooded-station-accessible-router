@@ -1,0 +1,27 @@
+services:
+  # 可用页面：docker compose up --build
+  # 宿主端口默认 8080，可用 WEB_PORT 覆盖，例如 WEB_PORT=9000 docker compose up
+  web:
+    build:
+      context: .
+      target: web
+    image: station-reviewer-web
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # 一次性验收服务：
+  #   docker compose --profile verify run --rm --build verify
+  # 依次执行生产构建、Vitest 单测、Playwright 交互测试，结束即退出。
+  verify:
+    profiles: ["verify"]
+    build:
+      context: .
+      target: verify
+    image: station-reviewer-verify
+    command: ["npm", "run", "verify"]

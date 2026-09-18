@@ -2,3 +2,18 @@
 .env
 node_modules/
 __pycache__/
+
+# 构建与测试产物
+dist/
+coverage/
+test-results/
+playwright-report/
+
+# 本地依赖缓存（无 root 环境下安装浏览器系统库所用，勿提交）
+.npm-cache/
+.syslib/
+
+# 编辑器
+.vscode/
+.idea/
+*.log
